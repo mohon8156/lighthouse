@@ -117,6 +117,13 @@ class ReportUIFeatures {
       this._document.addEventListener('scroll', this._updateStickyHeaderOnScroll);
       window.addEventListener('resize', this._updateStickyHeaderOnScroll);
     }
+
+    // Show the metric descriptions by default when there is an error.
+    if (report.audits.metrics.errorMessage) {
+      const toggleInputEl = /** @type {HTMLInputElement} */ (
+        this._dom.find('.lh-metrics-toggle__input', this._document));
+      toggleInputEl.checked = true;
+    }
   }
 
   /**
