@@ -168,8 +168,7 @@ function getNodePath(node) {
     while (prevNode = node.previousSibling) {
       node = prevNode;
       // skip empty text nodes
-      if (node.nodeType === Node.TEXT_NODE && node.textContent &&
-        node.textContent.trim().length === 0) continue;
+      if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim().length === 0) continue;
       index++;
     }
     return index;
