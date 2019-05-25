@@ -48,7 +48,8 @@ class GatherRunner {
    * Loads options.url with specified options. If the main document URL
    * redirects, options.url will be updated accordingly. As such, options.url
    * will always represent the post-redirected URL. options.requestedUrl is the
-   * pre-redirect starting URL.
+   * pre-redirect starting URL. If the navigation errors with "expected" errors such as
+   * NO_FCP, a `navigationError` is returned.
    * @param {Driver} driver
    * @param {LH.Gatherer.PassContext} passContext
    * @return {Promise<{navigationError?: LH.LighthouseError}>}
@@ -596,7 +597,7 @@ class GatherRunner {
 
     // Navigate, start recording, and run `pass()` on gatherers.
     await GatherRunner.beginRecording(passContext);
-    const {navigationError} = await GatherRunner.loadPage(driver, passContext);
+    const {navigationError: possibleNavError} = await GatherRunner.loadPage(driver, passContext);
     await GatherRunner.pass(passContext, gathererResults);
     const loadData = await GatherRunner.endRecording(passContext);
 
@@ -609,7 +610,7 @@ class GatherRunner {
     if (loadData.trace) baseArtifacts.traces[passConfig.passName] = loadData.trace;
 
     // If there were any load errors, treat all gatherers as if they errored.
-    const pageLoadError = GatherRunner.getPageLoadError(passContext, loadData, navigationError);
+    const pageLoadError = GatherRunner.getPageLoadError(passContext, loadData, possibleNavError);
     if (pageLoadError) {
       log.error('GatherRunner', pageLoadError.friendlyMessage, passContext.url);
       passContext.LighthouseRunWarnings.push(pageLoadError.friendlyMessage);

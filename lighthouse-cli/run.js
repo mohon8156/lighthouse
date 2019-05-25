@@ -227,7 +227,8 @@ async function runLighthouse(url, flags, config) {
         name: 'LHError',
         friendlyMessage: runtimeError.message,
         lhrRuntimeError: true,
-        ...runtimeError,
+        code: runtimeError.code,
+        message: runtimeError.message,
       });
     }
 
