@@ -186,10 +186,10 @@ class Runner {
     // resolution.
     .map(entry => {
       return /** @type {PerformanceEntry} */ ({
-        name: entry.name,
-        entryType: entry.entryType,
-        duration: parseFloat(entry.duration.toFixed(2)),
         startTime: parseFloat(entry.startTime.toFixed(2)),
+        name: entry.name,
+        duration: parseFloat(entry.duration.toFixed(2)),
+        entryType: entry.entryType,
       });
     });
     const runnerEntry = timingEntries.find(e => e.name === 'lh:runner:run');
