@@ -186,7 +186,8 @@ class Runner {
     // resolution.
     .map(entry => {
       return /** @type {PerformanceEntry} */ ({
-        ...entry,
+        name: entry.name,
+        entryType: entry.entryType,
         duration: parseFloat(entry.duration.toFixed(2)),
         startTime: parseFloat(entry.startTime.toFixed(2)),
       });
