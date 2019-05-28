@@ -119,7 +119,9 @@ class ReportUIFeatures {
     }
 
     // Show the metric descriptions by default when there is an error.
-    if (report.audits.metrics.errorMessage) {
+    const hasMetricError = report.categories.performance.auditRefs
+      .some(audit => Boolean(audit.group === 'metrics' && report.audits[audit.id].errorMessage));
+    if (hasMetricError) {
       const toggleInputEl = /** @type {HTMLInputElement} */ (
         this._dom.find('.lh-metrics-toggle__input', this._document));
       toggleInputEl.checked = true;

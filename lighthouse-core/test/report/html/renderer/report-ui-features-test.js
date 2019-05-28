@@ -249,7 +249,7 @@ describe('ReportUIFeatures', () => {
 
     it('with error, show by default', () => {
       const lhr = JSON.parse(JSON.stringify(sampleResults));
-      lhr.audits.metrics.errorMessage = 'Error.';
+      lhr.audits['first-contentful-paint'].errorMessage = 'Error.';
       const container = render(lhr);
       assert.ok(container.querySelector('.lh-metrics-toggle__input').checked);
     });
