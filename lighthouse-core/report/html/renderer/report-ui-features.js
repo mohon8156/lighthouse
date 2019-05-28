@@ -119,7 +119,7 @@ class ReportUIFeatures {
     }
 
     // Show the metric descriptions by default when there is an error.
-    const hasMetricError = report.categories.performance.auditRefs
+    const hasMetricError = report.categories.performance && report.categories.performance.auditRefs
       .some(audit => Boolean(audit.group === 'metrics' && report.audits[audit.id].errorMessage));
     if (hasMetricError) {
       const toggleInputEl = /** @type {HTMLInputElement} */ (
